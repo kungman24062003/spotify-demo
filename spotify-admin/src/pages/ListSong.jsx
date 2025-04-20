@@ -3,10 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { url } from '../App';
 import { toast } from 'react-toastify';
 
+
+// Component hiển thị danh sách bài hát
 const ListSong = () => {
 
+    //danh sách bài hát
     const [data,setData] = useState([]);
 
+    // Hàm tải danh sách bài hát từ server
     const fetchSongs = async () => {
 
         try {
@@ -23,6 +27,7 @@ const ListSong = () => {
 
     }
 
+    // Hàm xóa bài hát
     const removeSong = async (id) => {
 
         try {
@@ -40,6 +45,7 @@ const ListSong = () => {
 
     }
 
+    // Tự động gọi `fetchSongs` khi component được mount
     useEffect(()=>{
         fetchSongs();
     },[])

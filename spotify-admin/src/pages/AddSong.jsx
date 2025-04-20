@@ -4,8 +4,10 @@ import axios from 'axios'
 import { url } from '../App';
 import { toast } from 'react-toastify';
 
+// Component thêm bài hát mới
 const AddSong = () => {
 
+    // State quản lý dữ liệu bài hát
     const [image,setImage] = useState(false);
     const [song,setSong] = useState(false);
     const [name,setName] = useState("");
@@ -14,6 +16,7 @@ const AddSong = () => {
     const [loading,setLoading] = useState(false);
     const [albumData,setAlbumData] = useState([]);
 
+    // Xử lý khi form được gửi
     const onSubmitHandler = async (e) => {
 
         e.preventDefault();
@@ -27,8 +30,10 @@ const AddSong = () => {
             formData.append('audio',song);
             formData.append('album',album);
 
+            // Gửi yêu cầu POST đến server
             const response = await axios.post(`${url}/api/song/add`,formData);
 
+            // Kiểm tra phản hồi từ server
             if(response.data.success) {
                 toast.success("Song added");
                 setName("");
@@ -47,6 +52,7 @@ const AddSong = () => {
         setLoading(false);
     }
 
+    // Tải dữ liệu album từ server
     const loadAlbumData = async () => {
         try {
             
@@ -64,10 +70,12 @@ const AddSong = () => {
         }
     }
 
+    // Tự động tải dữ liệu album khi component được mount
     useEffect(()=>{
         loadAlbumData();
     },[])
 
+    // Hiển thị giao diện khi đang tải
   return loading ? (
     <div className='grid place-items-center min-h-[80vh]'>
         <div className='w-16 h-16 place-self-center border-4 border-gray-400 border-t-green-800 rounded-full animate-spin'></div>
